@@ -24,7 +24,7 @@ function App() {
     if(city){
       fetchWeather();
     }
-  }, [fetchWeather]);
+  }, [fetchWeather, city]);
   
   console.log(weatherData);
 
