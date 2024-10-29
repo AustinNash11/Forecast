@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Results from './component/Results';
 import Search from './component/Search';
 function App() {
@@ -9,7 +9,7 @@ function App() {
   const apiKey = 'f694eb08be72d957916b675bda407825';
 
 
-  const fetchWeather = async () =>{
+  const fetchWeather = useCallback(async () =>{
     if (!city) return;
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`);
@@ -18,13 +18,13 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-  }
+  }, [city]);
 
   useEffect(()=>{
     if(city){
       fetchWeather();
     }
-  }, [city]);
+  }, [fetchWeather]);
   
   console.log(weatherData);
 
